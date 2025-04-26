@@ -4,13 +4,53 @@
   <meta charset="UTF-8">
   <title>Jogo da Cobrinha</title>
   <style>
-    body { text-align: center; background: #eee; }
-    canvas { background: #000; display: block; margin: 0 auto; }
+    body { 
+      text-align: center; 
+      background: #eee; 
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+    canvas { 
+      background: #000; 
+      display: block; 
+      margin: 0 auto;
+    }
+    .controls {
+      margin-top: 20px;
+    }
+    .controls button {
+      width: 60px;
+      height: 60px;
+      font-size: 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 10px;
+      background-color: #4CAF50;
+      color: white;
+    }
+    .controls .up {
+      display: block;
+      margin: 0 auto 5px auto;
+    }
+    .controls .left-right {
+      display: flex;
+      justify-content: center;
+    }
   </style>
 </head>
 <body>
   <h1>Jogo da Cobrinha 🐍</h1>
   <canvas id="snake" width="400" height="400"></canvas>
+
+  <div class="controls">
+    <button class="up" onclick="setDirection('up')">↑</button>
+    <div class="left-right">
+      <button onclick="setDirection('left')">←</button>
+      <button onclick="setDirection('down')">↓</button>
+      <button onclick="setDirection('right')">→</button>
+    </div>
+  </div>
 
   <script src="snake.js"></script>
 </body>
