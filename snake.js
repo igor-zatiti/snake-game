@@ -74,3 +74,10 @@ function startGame() {
 }
 
 let game = setInterval(startGame, 100);
+function setDirection(dir) {
+  if (dir == "left" && direction != "right") direction = "left";
+  if (dir == "up" && direction != "down") direction = "up";
+  if (dir == "right" && direction != "left") direction = "right";
+  if (dir == "down" && direction != "up") direction = "down";
+}
+
