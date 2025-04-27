@@ -69,11 +69,32 @@ function startGame() {
   for (let i = 1; i < snake.length; i++) {
     if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
       clearInterval(game);
+
       if (score > bestScore) {
         bestScore = score;
         localStorage.setItem("bestScore", bestScore);
       }
-      alert(`Fim de jogo! Sua pontuação foi: ${score}`);
+
+      let nome = prompt(`Fim de jogo! Sua pontuação foi: ${score}\nDigite seu nome para entrar no ranking:`);
+
+      if (nome) {
+        fetch('https://script.google.com/macros/s/AKfycbwk5DLbiwYmNRK4FSS01V9xxSvFWOvZBBzExTIPGo39nW00MXJUSpOd_BPfmpNn5bnsRw/exec', {
+          method: "POST",
+          body: JSON.stringify({
+            nome: nome,
+            pontuacao: score,
+            token: "snake_2025_top_secret"
+          }),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }).then(response => {
+          console.log('Pontuação enviada!');
+        }).catch(error => {
+          console.error('Erro ao enviar pontuação:', error);
+        });
+      }
+
       init(); // Reinicia automaticamente
       return;
     }
@@ -97,8 +118,8 @@ function startGame() {
     createFood();
 
     // 🚀 Acelerar a cada 5 pontos
-    if (score % 5 === 0 && speed > 40) { // Limite mínimo de velocidade
-      speed -= 10; // Diminui 10ms no intervalo
+    if (score % 5 === 0 && speed > 40) {
+      speed -= 10; 
       clearInterval(game);
       game = setInterval(startGame, speed);
     }
@@ -117,36 +138,3 @@ function restartGame() {
 
 // Inicia o jogo na primeira vez
 init();
-
-if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
-  clearInterval(game);
-
-  if (score > bestScore) {
-    bestScore = score;
-    localStorage.setItem("bestScore", bestScore);
-  }
-
-  let nome = prompt("Fim de jogo! Sua pontuação foi: " + score + "\nDigite seu nome para entrar no ranking:");
-
-  if (nome) {
-    // Envia para Google Sheets com token
-    fetch('https://script.google.com/macros/s/AKfycbwk5DLbiwYmNRK4FSS01V9xxSvFWOvZBBzExTIPGo39nW00MXJUSpOd_BPfmpNn5bnsRw/exec', {
-      method: "POST",
-      body: JSON.stringify({
-        nome: nome,
-        pontuacao: score,
-        token: "snake_2025_top_secret"
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(response => {
-      console.log('Pontuação enviada!');
-    }).catch(error => {
-      console.error('Erro ao enviar pontuação:', error);
-    });
-  }
-
-  init(); // Reinicia o jogo
-  return;
-}
