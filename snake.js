@@ -78,7 +78,7 @@ function startGame() {
       let nome = prompt(`Fim de jogo! Sua pontuação foi: ${score}\nDigite seu nome para entrar no ranking:`);
 
       if (nome) {
-        fetch('https://sheetdb.io/api/v1/i2yjlsfbthcry', {
+        fetch('https://sheetdb.io/api/v1/SEU_CODIGO_SHEETDB', { // troque pela sua URL
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -95,7 +95,8 @@ function startGame() {
         })
         .then(response => response.json())
         .then(data => {
-          console.log('Pontuação enviada com sucesso!', data);
+          console.log('Pontuação enviada!');
+          carregarRanking(); // Atualiza o ranking depois de enviar
         })
         .catch(error => {
           console.error('Erro ao enviar pontuação:', error);
@@ -124,9 +125,8 @@ function startGame() {
     document.getElementById("score").innerText = `Pontuação: ${score} | Recorde: ${bestScore}`;
     createFood();
 
-    // 🚀 Acelerar a cada 5 pontos
     if (score % 5 === 0 && speed > 40) {
-      speed -= 10; 
+      speed -= 10;
       clearInterval(game);
       game = setInterval(startGame, speed);
     }
@@ -139,24 +139,17 @@ function startGame() {
   snake.unshift(newHead);
 }
 
-function restartGame() {
-  init();
-}
 function carregarRanking() {
-  fetch('https://sheetdb.io/api/v1/i2yjlsfbthcry') // Troque pela sua URL da API
+  fetch('https://sheetdb.io/api/v1/SEU_CODIGO_SHEETDB') // troque pela sua URL
     .then(response => response.json())
     .then(data => {
-      // Ordena do maior para o menor
       data.sort((a, b) => b.Pontuacao - a.Pontuacao);
 
-      // Seleciona só os 10 melhores
       const top10 = data.slice(0, 10);
 
-      // Pega o elemento da lista
       const rankingList = document.getElementById("ranking-list");
-      rankingList.innerHTML = ""; // Limpa antes de preencher
+      rankingList.innerHTML = "";
 
-      // Insere cada jogador na lista
       top10.forEach(jogador => {
         const item = document.createElement("li");
         item.textContent = `${jogador.Nome} - ${jogador.Pontuacao} pontos`;
@@ -168,9 +161,6 @@ function carregarRanking() {
     });
 }
 
-// ⚡ Carrega o ranking logo que o site abre
-carregarRanking();
-
-
-// Inicia o jogo na primeira vez
+// Inicia o jogo e já carrega o ranking
 init();
+carregarRanking();
