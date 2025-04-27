@@ -78,7 +78,7 @@ function startGame() {
       let nome = prompt(`Fim de jogo! Sua pontuação foi: ${score}\nDigite seu nome para entrar no ranking:`);
 
       if (nome) {
-        fetch('https://sheetdb.io/api/v1/i2yjlsfbthcry', { // troque pela sua URL
+        fetch('https://sheetdb.io/api/v1/i2yjlsfbthcry', { 
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -140,7 +140,7 @@ function startGame() {
 }
 
 function carregarRanking() {
-  fetch('https://sheetdb.io/api/v1/i2yjlsfbthcry') // troque pela sua URL
+  fetch('https://sheetdb.io/api/v1/i2yjlsfbthcry') 
     .then(response => response.json())
     .then(data => {
       data.sort((a, b) => b.Pontuacao - a.Pontuacao);
