@@ -44,16 +44,6 @@
       display: flex;
       justify-content: center;
     }
-    #restart {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 18px;
-      border-radius: 10px;
-      background-color: #f44336;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
@@ -70,12 +60,9 @@
     </div>
   </div>
 
-  <button id="restart">Recomeçar</button>
-
   <script src="snake.js"></script>
 
   <script>
-    // Toque rápido e click para celular e PC
     const options = { passive: true };
     document.getElementById("btn-up").addEventListener("touchstart", () => setDirection('up'), options);
     document.getElementById("btn-down").addEventListener("touchstart", () => setDirection('down'), options);
@@ -86,9 +73,6 @@
     document.getElementById("btn-down").addEventListener("click", () => setDirection('down'));
     document.getElementById("btn-left").addEventListener("click", () => setDirection('left'));
     document.getElementById("btn-right").addEventListener("click", () => setDirection('right'));
-
-    // Recomeçar o jogo
-    document.getElementById("restart").addEventListener("click", restartGame);
   </script>
 </body>
 </html>
