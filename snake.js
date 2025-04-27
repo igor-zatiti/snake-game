@@ -79,28 +79,27 @@ function startGame() {
 
       if (nome) {
         fetch('https://sheetdb.io/api/v1/i2yjlsfbthcry', {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    data: [
-      {
-        Nome: nome,
-        Pontuacao: score,
-        Data: new Date().toLocaleString()
-      }
-    ]
-  })
-})
-.then(response => response.json())
-.then(data => {
-  console.log('Pontuação enviada com sucesso!', data);
-})
-.catch(error => {
-  console.error('Erro ao enviar pontuação:', error);
-});
-
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            data: [
+              {
+                Nome: nome,
+                Pontuacao: score,
+                Data: new Date().toLocaleString()
+              }
+            ]
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Pontuação enviada com sucesso!', data);
+        })
+        .catch(error => {
+          console.error('Erro ao enviar pontuação:', error);
+        });
       }
 
       init(); // Reinicia automaticamente
