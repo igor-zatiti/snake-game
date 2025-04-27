@@ -142,6 +142,35 @@ function startGame() {
 function restartGame() {
   init();
 }
+function carregarRanking() {
+  fetch('https://sheetdb.io/api/v1/i2yjlsfbthcry') // Troque pela sua URL da API
+    .then(response => response.json())
+    .then(data => {
+      // Ordena do maior para o menor
+      data.sort((a, b) => b.Pontuacao - a.Pontuacao);
+
+      // Seleciona só os 10 melhores
+      const top10 = data.slice(0, 10);
+
+      // Pega o elemento da lista
+      const rankingList = document.getElementById("ranking-list");
+      rankingList.innerHTML = ""; // Limpa antes de preencher
+
+      // Insere cada jogador na lista
+      top10.forEach(jogador => {
+        const item = document.createElement("li");
+        item.textContent = `${jogador.Nome} - ${jogador.Pontuacao} pontos`;
+        rankingList.appendChild(item);
+      });
+    })
+    .catch(error => {
+      console.error('Erro ao carregar ranking:', error);
+    });
+}
+
+// ⚡ Carrega o ranking logo que o site abre
+carregarRanking();
+
 
 // Inicia o jogo na primeira vez
 init();
