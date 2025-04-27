@@ -117,3 +117,35 @@ function restartGame() {
 
 // Inicia o jogo na primeira vez
 init();
+
+if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
+  clearInterval(game);
+
+  if (score > bestScore) {
+    bestScore = score;
+    localStorage.setItem("bestScore", bestScore);
+  }
+
+  let nome = prompt("Fim de jogo! Sua pontuação foi: " + score + "\nDigite seu nome para entrar no ranking:");
+
+  if (nome) {
+    // Envia para Google Sheets
+    fetch('https://script.google.com/macros/s/AKfycbwk5DLbiwYmNRK4FSS01V9xxSvFWOvZBBzExTIPGo39nW00MXJUSpOd_BPfmpNn5bnsRw/exec', {
+      method: "POST",
+      body: JSON.stringify({
+        nome: nome,
+        pontuacao: score
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(response => {
+      console.log('Pontuação enviada!');
+    }).catch(error => {
+      console.error('Erro ao enviar pontuação:', error);
+    });
+  }
+
+  init(); // Reinicia o jogo
+  return;
+}
