@@ -6,13 +6,14 @@ let direction = "right";
 let food;
 let game;
 let score = 0;
+let bestScore = localStorage.getItem("bestScore") || 0;
 
 function init() {
   snake = [{ x: 10 * box, y: 10 * box }];
   direction = "right";
   createFood();
   score = 0;
-  document.getElementById("score").innerText = "Pontuação: 0";
+  document.getElementById("score").innerText = `Pontuação: 0 | Recorde: ${bestScore}`;
   clearInterval(game);
   game = setInterval(startGame, 100);
 }
@@ -66,7 +67,13 @@ function startGame() {
   for (let i = 1; i < snake.length; i++) {
     if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
       clearInterval(game);
-      alert("Fim de jogo! Sua pontuação foi: " + score);
+      if (score > bestScore) {
+        bestScore = score;
+        localStorage.setItem("bestScore", bestScore);
+      }
+      alert(`Fim de jogo! Sua pontuação foi: ${score}`);
+      init(); // Reinicia automaticamente após o alerta
+      return;
     }
   }
 
@@ -84,7 +91,7 @@ function startGame() {
 
   if (snakeX == food.x && snakeY == food.y) {
     score++;
-    document.getElementById("score").innerText = "Pontuação: " + score;
+    document.getElementById("score").innerText = `Pontuação: ${score} | Recorde: ${bestScore}`;
     createFood();
   } else {
     snake.pop();
