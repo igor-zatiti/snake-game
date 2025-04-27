@@ -11,6 +11,13 @@
       padding: 20px;
       font-family: Arial, sans-serif;
     }
+    h1 {
+      margin-bottom: 10px;
+    }
+    #score {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
     canvas { 
       background: #000; 
       display: block; 
@@ -37,10 +44,21 @@
       display: flex;
       justify-content: center;
     }
+    #restart {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 10px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <h1>Jogo da Cobrinha 🐍</h1>
+  <div id="score">Pontuação: 0</div>
   <canvas id="snake" width="400" height="400"></canvas>
 
   <div class="controls">
@@ -52,20 +70,25 @@
     </div>
   </div>
 
+  <button id="restart">Recomeçar</button>
+
   <script src="snake.js"></script>
 
   <script>
-    // Eventos rápidos para celular
-    document.getElementById("btn-up").addEventListener("touchstart", () => setDirection('up'));
-    document.getElementById("btn-down").addEventListener("touchstart", () => setDirection('down'));
-    document.getElementById("btn-left").addEventListener("touchstart", () => setDirection('left'));
-    document.getElementById("btn-right").addEventListener("touchstart", () => setDirection('right'));
+    // Toque rápido e click para celular e PC
+    const options = { passive: true };
+    document.getElementById("btn-up").addEventListener("touchstart", () => setDirection('up'), options);
+    document.getElementById("btn-down").addEventListener("touchstart", () => setDirection('down'), options);
+    document.getElementById("btn-left").addEventListener("touchstart", () => setDirection('left'), options);
+    document.getElementById("btn-right").addEventListener("touchstart", () => setDirection('right'), options);
 
-    // E para quem estiver no computador ainda funciona o click normal:
     document.getElementById("btn-up").addEventListener("click", () => setDirection('up'));
     document.getElementById("btn-down").addEventListener("click", () => setDirection('down'));
     document.getElementById("btn-left").addEventListener("click", () => setDirection('left'));
     document.getElementById("btn-right").addEventListener("click", () => setDirection('right'));
+
+    // Recomeçar o jogo
+    document.getElementById("restart").addEventListener("click", restartGame);
   </script>
 </body>
 </html>
