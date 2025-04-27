@@ -2,12 +2,27 @@ let canvas = document.getElementById("snake");
 let context = canvas.getContext("2d");
 let box = 20;
 let snake = [];
-snake[0] = { x: 10 * box, y: 10 * box };
 let direction = "right";
-let food = {
-  x: Math.floor(Math.random() * 20) * box,
-  y: Math.floor(Math.random() * 20) * box
-};
+let food;
+let game;
+let score = 0;
+
+function init() {
+  snake = [{ x: 10 * box, y: 10 * box }];
+  direction = "right";
+  createFood();
+  score = 0;
+  document.getElementById("score").innerText = "Pontuação: 0";
+  clearInterval(game);
+  game = setInterval(startGame, 100);
+}
+
+function createFood() {
+  food = {
+    x: Math.floor(Math.random() * 20) * box,
+    y: Math.floor(Math.random() * 20) * box
+  };
+}
 
 function createBG() {
   context.fillStyle = "black";
@@ -35,6 +50,13 @@ function updateDirection(event) {
   if (event.keyCode == 40 && direction != "up") direction = "down";
 }
 
+function setDirection(dir) {
+  if (dir == "left" && direction != "right") direction = "left";
+  if (dir == "up" && direction != "down") direction = "up";
+  if (dir == "right" && direction != "left") direction = "right";
+  if (dir == "down" && direction != "up") direction = "down";
+}
+
 function startGame() {
   if (snake[0].x >= 400) snake[0].x = 0;
   if (snake[0].x < 0) snake[0].x = 400;
@@ -44,7 +66,7 @@ function startGame() {
   for (let i = 1; i < snake.length; i++) {
     if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
       clearInterval(game);
-      alert("Game Over :(");
+      alert("Fim de jogo! Sua pontuação foi: " + score);
     }
   }
 
@@ -61,10 +83,9 @@ function startGame() {
   if (direction == "down") snakeY += box;
 
   if (snakeX == food.x && snakeY == food.y) {
-    food = {
-      x: Math.floor(Math.random() * 20) * box,
-      y: Math.floor(Math.random() * 20) * box
-    };
+    score++;
+    document.getElementById("score").innerText = "Pontuação: " + score;
+    createFood();
   } else {
     snake.pop();
   }
@@ -73,11 +94,9 @@ function startGame() {
   snake.unshift(newHead);
 }
 
-let game = setInterval(startGame, 100);
-function setDirection(dir) {
-  if (dir == "left" && direction != "right") direction = "left";
-  if (dir == "up" && direction != "down") direction = "up";
-  if (dir == "right" && direction != "left") direction = "right";
-  if (dir == "down" && direction != "up") direction = "down";
+function restartGame() {
+  init();
 }
 
+// Inicia o jogo na primeira vez
+init();
