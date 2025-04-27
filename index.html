@@ -44,14 +44,28 @@
   <canvas id="snake" width="400" height="400"></canvas>
 
   <div class="controls">
-    <button class="up" onclick="setDirection('up')">↑</button>
+    <button id="btn-up" class="up">↑</button>
     <div class="left-right">
-      <button onclick="setDirection('left')">←</button>
-      <button onclick="setDirection('down')">↓</button>
-      <button onclick="setDirection('right')">→</button>
+      <button id="btn-left">←</button>
+      <button id="btn-down">↓</button>
+      <button id="btn-right">→</button>
     </div>
   </div>
 
   <script src="snake.js"></script>
+
+  <script>
+    // Eventos rápidos para celular
+    document.getElementById("btn-up").addEventListener("touchstart", () => setDirection('up'));
+    document.getElementById("btn-down").addEventListener("touchstart", () => setDirection('down'));
+    document.getElementById("btn-left").addEventListener("touchstart", () => setDirection('left'));
+    document.getElementById("btn-right").addEventListener("touchstart", () => setDirection('right'));
+
+    // E para quem estiver no computador ainda funciona o click normal:
+    document.getElementById("btn-up").addEventListener("click", () => setDirection('up'));
+    document.getElementById("btn-down").addEventListener("click", () => setDirection('down'));
+    document.getElementById("btn-left").addEventListener("click", () => setDirection('left'));
+    document.getElementById("btn-right").addEventListener("click", () => setDirection('right'));
+  </script>
 </body>
 </html>
