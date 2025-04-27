@@ -78,21 +78,29 @@ function startGame() {
       let nome = prompt(`Fim de jogo! Sua pontuação foi: ${score}\nDigite seu nome para entrar no ranking:`);
 
       if (nome) {
-        fetch('https://script.google.com/macros/s/AKfycbwk5DLbiwYmNRK4FSS01V9xxSvFWOvZBBzExTIPGo39nW00MXJUSpOd_BPfmpNn5bnsRw/exec', {
-          method: "POST",
-          body: JSON.stringify({
-            nome: nome,
-            pontuacao: score,
-            token: "snake_2025_top_secret"
-          }),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }).then(response => {
-          console.log('Pontuação enviada!');
-        }).catch(error => {
-          console.error('Erro ao enviar pontuação:', error);
-        });
+        fetch('https://sheetdb.io/api/v1/i2yjlsfbthcry', {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    data: [
+      {
+        Nome: nome,
+        Pontuacao: score,
+        Data: new Date().toLocaleString()
+      }
+    ]
+  })
+})
+.then(response => response.json())
+.then(data => {
+  console.log('Pontuação enviada com sucesso!', data);
+})
+.catch(error => {
+  console.error('Erro ao enviar pontuação:', error);
+});
+
       }
 
       init(); // Reinicia automaticamente
