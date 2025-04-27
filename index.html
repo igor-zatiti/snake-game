@@ -4,62 +4,79 @@
   <meta charset="UTF-8">
   <title>Jogo da Cobrinha</title>
   <style>
-    body { 
-      text-align: center; 
-      background: #eee; 
-      margin: 0;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-    }
-    h1 {
-      margin-bottom: 10px;
-    }
-    #score {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-    canvas { 
-      background: #000; 
-      display: block; 
-      margin: 0 auto;
-    }
-    .controls {
-      margin-top: 20px;
-    }
-    .controls button {
-      width: 60px;
-      height: 60px;
-      font-size: 20px;
-      margin: 5px;
-      border: none;
-      border-radius: 10px;
-      background-color: #4CAF50;
-      color: white;
-    }
-    .controls .up {
-      display: block;
-      margin: 0 auto 5px auto;
-    }
-    .controls .left-right {
-      display: flex;
-      justify-content: center;
-    }
+<style>
+  body { 
+    text-align: center; 
+    background: #eee; 
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  #score {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  canvas { 
+    background: #000; 
+    display: block; 
+    margin: 0 auto;
+  }
+  .controls {
+    margin-top: 20px;
+  }
+  .controls button {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    background-color: #4CAF50;
+    color: white;
+  }
+  .controls .up {
+    display: block;
+    margin: 0 auto 5px auto;
+  }
+  .controls .left-right {
+    display: flex;
+    justify-content: center;
+  }
+  #ranking {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+  }
+  #ranking-list {
+    text-align: left;
+    margin-top: 10px;
+  }
+</style>
+
   </style>
 </head>
-<body>
-  <h1>Jogo da Cobrinha 🐍</h1>
-  <div id="score">Pontuação: 0</div>
-  <canvas id="snake" width="400" height="400"></canvas>
+<div style="display: flex; justify-content: center; align-items: flex-start; gap: 30px; margin-top: 20px;">
+  <div id="game-area">
+    <h1>Jogo da Cobrinha 🐍</h1>
+    <div id="score">Pontuação: 0</div>
+    <canvas id="snake" width="400" height="400"></canvas>
 
-  <div class="controls">
-    <button id="btn-up" class="up">↑</button>
-    <div class="left-right">
-      <button id="btn-left">←</button>
-      <button id="btn-down">↓</button>
-      <button id="btn-right">→</button>
+    <div class="controls">
+      <button id="btn-up" class="up">↑</button>
+      <div class="left-right">
+        <button id="btn-left">←</button>
+        <button id="btn-down">↓</button>
+        <button id="btn-right">→</button>
+      </div>
     </div>
   </div>
 
+  <div id="ranking" style="min-width: 200px; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px #ccc;">
+    <h2>🏆 Ranking</h2>
+    <ol id="ranking-list"></ol>
+  </div>
+</div>
   <script src="snake.js"></script>
 
   <script>
