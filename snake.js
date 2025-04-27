@@ -129,12 +129,13 @@ if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
   let nome = prompt("Fim de jogo! Sua pontuação foi: " + score + "\nDigite seu nome para entrar no ranking:");
 
   if (nome) {
-    // Envia para Google Sheets
+    // Envia para Google Sheets com token
     fetch('https://script.google.com/macros/s/AKfycbwk5DLbiwYmNRK4FSS01V9xxSvFWOvZBBzExTIPGo39nW00MXJUSpOd_BPfmpNn5bnsRw/exec', {
       method: "POST",
       body: JSON.stringify({
         nome: nome,
-        pontuacao: score
+        pontuacao: score,
+        token: "snake_2025_top_secret"
       }),
       headers: {
         "Content-Type": "application/json"
